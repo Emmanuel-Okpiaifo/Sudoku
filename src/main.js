@@ -1,19 +1,35 @@
-import $ from 'jquery'
-import {easyPuzzle, mediumPuzzle,hardPuzzle} from './js/logic';
-import {easySolution, mediumSolution, hardSolution} from './js/logic';
-import {startTimer} from './js/logic'
-import {displayPuzzle} from './js/logic';
+import $ from 'jquery';
+import { easyPuzzle, mediumPuzzle, hardPuzzle, easySolution, mediumSolution, hardSolution, startTimer, displayPuzzle } from './js/logic';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
 const cells = document.querySelectorAll('.sudoku-cell');
 const numberButtons = document.querySelectorAll('.sudoku-options button');
-const checkPuzzle = $("#checkbtn")
+const checkPuzzle = $("#checkbtn");
 let selectedCell = null;
 let currentSolution = [];
 
+// Get Popup DOM elements
+const popup = document.getElementById('popup');
+const popupMessage = document.getElementById('popup-message');
+const closePopup = document.getElementById('close-popup');
 
+// Show Popup Function
+function showPopup(message) {
+    popupMessage.textContent = message;
+    popup.classList.add('show');
+}
+
+// Hide Popup Function
+function hidePopup() {
+    popup.classList.remove('show');
+}
+
+// Attach the event listener to the Close button
+closePopup.addEventListener('click', hidePopup);
+
+// Generate Sudoku Puzzle based on difficulty
 function generatePuzzle() {
     const buttons = $(".easy, .medium, .hard");
     buttons.each(function() {
@@ -21,10 +37,10 @@ function generatePuzzle() {
             let selectedValue = $(this).attr("data-value");
             let puzzle;
             startTimer();
+
             if (selectedValue === 'easy') {
                 puzzle = easyPuzzle[Math.floor(Math.random() * easyPuzzle.length)];
                 currentSolution = easySolution[easyPuzzle.indexOf(puzzle)].map(row => row.split(''));
-                console.log(currentSolution)
             } else if (selectedValue === 'medium') {
                 puzzle = mediumPuzzle[Math.floor(Math.random() * mediumPuzzle.length)];
                 currentSolution = mediumSolution[mediumPuzzle.indexOf(puzzle)].map(row => row.split(''));
@@ -32,22 +48,23 @@ function generatePuzzle() {
                 puzzle = hardPuzzle[Math.floor(Math.random() * hardPuzzle.length)];
                 currentSolution = hardSolution[hardPuzzle.indexOf(puzzle)].map(row => row.split(''));
             }
+
             displayPuzzle(puzzle);
         });
     });
 }
 
+// Check the solution and show the correct message
 function checkSolution() {
     let isCorrect = true;
 
     cells.forEach((cell, index) => {
-        let rowIndex = Math.floor(index / 9); 
-        let colIndex = index % 9; 
-
+        let rowIndex = Math.floor(index / 9);
+        let colIndex = index % 9;
         const userInput = cell.textContent === '' ? '' : cell.textContent;
 
         if (userInput !== currentSolution[rowIndex][colIndex]) {
-            cell.style.backgroundColor = '#ffcccc'; 
+            cell.style.backgroundColor = '#ffcccc';
             isCorrect = false;
         } else {
             cell.style.backgroundColor = '#ccffcc';
@@ -55,31 +72,23 @@ function checkSolution() {
     });
 
     if (isCorrect) {
-        alert("Congratulations! You solved the puzzle correctly.");
+        showPopup("🎉 Congratulations! You solved the puzzle correctly.");
     } else {
-        alert("Some numbers are incorrect. Please check again.");
+        showPopup("⚠️ Some numbers are incorrect. Please check again.");
     }
 }
 
+// Event Listeners for Cell and Button Interactions
+cells.forEach(cell => cell.addEventListener('click', () => {
+    selectedCell = cell;
+}));
 
-
-
-
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        selectedCell = cell;
-    });
-});
-
-numberButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        if (selectedCell) {
-            selectedCell.textContent = button.textContent;
-            selectedCell = null;
-        }
-    });
-});
-
+numberButtons.forEach(button => button.addEventListener('click', () => {
+    if (selectedCell) {
+        selectedCell.textContent = button.textContent;
+        selectedCell = null;
+    }
+}));
 
 checkPuzzle.on("click", checkSolution);
-generatePuzzle()
+generatePuzzle();
