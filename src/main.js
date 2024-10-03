@@ -74,7 +74,6 @@ function checkSolution() {
     }
 }
 
-// Event Listeners for Cell and Button Interactions
 cells.forEach(cell => cell.addEventListener('click', () => {
     selectedCell = cell;
 }));

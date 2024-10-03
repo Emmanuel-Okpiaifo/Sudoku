@@ -13,7 +13,6 @@ body, html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Sudoku Container Styling */
 .sudoku-container {
     display: flex;
     justify-content: center;
@@ -24,7 +23,6 @@ body, html {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Sudoku Grid */
 .sudoku-grid {
     display: grid;
     grid-template-columns: repeat(9, 60px);
@@ -35,7 +33,6 @@ body, html {
     border-radius: 10px;
 }
 
-/* Sudoku Cell Styling */
 .sudoku-cell{
     width: 60px;
     height: 60px;
@@ -86,7 +83,6 @@ border-bottom: 2px solid #333;
     }
 }
 
-/* Popup Modal Styles */
 .popup {
     display: none;
     position: fixed;
