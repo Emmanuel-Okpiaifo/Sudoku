@@ -10,12 +10,12 @@ const checkPuzzle = $("#checkbtn");
 let selectedCell = null;
 let currentSolution = [];
 
-// Get Popup DOM elements
+
 const popup = document.getElementById('popup');
 const popupMessage = document.getElementById('popup-message');
 const closePopup = document.getElementById('close-popup');
 
-// Show Popup Function
+
 function showPopup(message) {
     popupMessage.textContent = message;
     popup.classList.add('show');
