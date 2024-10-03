@@ -21,12 +21,10 @@ function showPopup(message) {
     popup.classList.add('show');
 }
 
-// Hide Popup Function
 function hidePopup() {
     popup.classList.remove('show');
 }
 
-// Attach the event listener to the Close button
 closePopup.addEventListener('click', hidePopup);
 
 // Generate Sudoku Puzzle based on difficulty
