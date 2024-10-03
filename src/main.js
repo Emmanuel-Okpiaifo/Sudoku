@@ -27,7 +27,6 @@ function hidePopup() {
 
 closePopup.addEventListener('click', hidePopup);
 
-// Generate Sudoku Puzzle based on difficulty
 function generatePuzzle() {
     const buttons = $(".easy, .medium, .hard");
     buttons.each(function() {
@@ -52,7 +51,6 @@ function generatePuzzle() {
     });
 }
 
-// Check the solution and show the correct message
 function checkSolution() {
     let isCorrect = true;
 
